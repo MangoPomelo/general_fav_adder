@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         General Favoriates Adder
-// @namespace    https://github.com/MangoPomelo
+// @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
 // @version      0.2
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
