@@ -1,6 +1,6 @@
 # 通用收藏添加器
 # General Favoriate Adder
-- Greasyfork: https://greasyfork.org/zh\-CN/scripts/424020\-general\-favoriates\-adder
+- Greasyfork: [Greasyfork](https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder)
 - 设计用来从网页提取信息
 - Designed to extract info from webpage
 - 将特征注入模板字符串，复制到剪切板，随后保存到表格或数据库
