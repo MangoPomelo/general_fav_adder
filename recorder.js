@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         General Favoriates adder
 // @namespace    https://github.com/MangoPomelo
-// @version      0.11
+// @version      0.2
 // @description  General Favoriates adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @match        https://www.pixiv.net/artworks/*
+// @include      /^https?://safebooru\.org/index\.php.*id=.*$/
 // @grant        none
 // ==/UserScript==
 
@@ -20,6 +21,7 @@
             "resultMap": res => res? res: "",
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > aside > section.sc-171jvz-1.sc-171jvz-3.sc-10r3j8-0.f30yhg-3.dfhJPe > h2 > div > div > a", // pixiv.net
+                "#tag-sidebar > li.tag-type-artist.tag > a", // safebooru.org
             ]
         },
         "URL": {
@@ -32,6 +34,8 @@
             "ranker": {
                 "threshold": 1,
                 "patterns": [
+                    {"reg": /^.*_.*$/, "weight": 5},
+                    {"reg": /^.* .*$/, "weight": 3},
                     {"reg": /^.*\(.*\)$/, "weight": 4},
                     {"reg": /^.*・.*$/, "weight": 4},
                     {"reg": /^[ァ-ヴー]{4}$/u, "weight": 1},
@@ -44,6 +48,7 @@
             },
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
+                "#tag-sidebar > li.tag-type-character.tag > a", // safebooru.org
             ]
         },
         "yuri": {
@@ -52,6 +57,7 @@
             "resultMap": res => res? "True": "False",
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
+                "#tag-sidebar > li.tag-type-general > a", // safebooru.org
             ]
         }
     };
@@ -249,7 +255,6 @@
         elem.style.bottom = "-50px";
         setTimeout(()=>{
             elem.remove();
-            clearInterval(interval);
         }, 2500);
     };
 
