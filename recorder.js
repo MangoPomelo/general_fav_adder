@@ -222,11 +222,6 @@
         }
     }
 
-    const createAHeadBar = () => {
-        let headBar = '<div style="position: fixed; bottom: "><p>Fav</p></div>';
-        document.getElementsByTagName("body")[0].insertAdjacentHTML('afterbegin', headBar);
-    };
-
     const copyToClipboard = str => {
         const el = document.createElement('textarea');
         el.value = str;
@@ -257,7 +252,6 @@
             elem.remove();
         }, 2500);
     };
-
 
     (()=>{
         let style = `
