@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         General Favoriates adder
+// @name         General Favoriates Adder
 // @namespace    https://github.com/MangoPomelo
 // @version      0.2
-// @description  General Favoriates adder for pixiv.net or other websites
+// @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @match        https://www.pixiv.net/artworks/*
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
