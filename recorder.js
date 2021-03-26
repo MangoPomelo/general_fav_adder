@@ -68,7 +68,6 @@
         constructor(subject) {
             this.dataLoaded = false;
             if (subject !== undefined) {
-                console.log("here" + subject);
                 // if subject exists
                 this.setData(subject);
             }
