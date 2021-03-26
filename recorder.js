@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         General Favoriates adder
 // @namespace    https://github.com/MangoPomelo
-// @version      0.1
+// @version      0.11
 // @description  General Favoriates adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @match        https://www.pixiv.net/artworks/*
@@ -11,10 +11,10 @@
 (function() {
     'use strict';
 
-    MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
-    TEMPLATE = "{author} {URL} {character} {yuri}"; // placeholders must coresponding to the subjects in CONFIG
-    LIKE = "LIKE"; COPIED = "COPIED"; // words displayed on the button
-    CONFIG = {
+    let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
+    let TEMPLATE = "{author} {URL} {character} {yuri}"; // placeholders must coresponding to the subjects in CONFIG
+    let LIKE = "LIKE"; let COPIED = "COPIED"; // words displayed on the button
+    let CONFIG = {
         "author": {
             "type": "is",
             "resultMap": res => res? res: "",
@@ -233,7 +233,8 @@
         document.body.removeChild(el);
     };
 
-    const extract = (elem) => {
+    const extract = (event) => {
+        let elem = event.target;
         let v = new Verifier();
         let f = new Formatter();
         let pairs = {};
@@ -283,7 +284,8 @@
         `;
         document.getElementsByTagName('head')[0].insertAdjacentHTML('afterbegin', style);
 
-        let element = `<button class="add-to-fav" onclick="extract(this)">${LIKE}</div>`;
+        let element = `<button class="add-to-fav">${LIKE}</div>`;
         document.getElementsByTagName("body")[0].insertAdjacentHTML('afterbegin', element);
+        document.getElementsByClassName("add-to-fav")[0].addEventListener("click", extract);
     })();
 })();
