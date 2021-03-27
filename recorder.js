@@ -285,7 +285,7 @@
             background: #f6b93b;
             border-color: #f6b93b !important;
             transition: all 0.4s ease 0s;
-            transition: opcacity 2s ease 0s;
+            transition: opacity 2s ease 0s;
             }
             </style>
         `;
