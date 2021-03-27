@@ -254,7 +254,7 @@
         copyToClipboard(result);
         elem.innerText = COPIED;
 
-        elem.style.bottom = "-50px";
+        elem.style.opacity = "0";
         setTimeout(()=>{
             elem.remove();
         }, 2500);
@@ -285,7 +285,7 @@
             background: #f6b93b;
             border-color: #f6b93b !important;
             transition: all 0.4s ease 0s;
-            transition: bottom 2s ease 0s;
+            transition: opcacity 2s ease 0s;
             }
             </style>
         `;
