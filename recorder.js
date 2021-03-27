@@ -20,7 +20,7 @@
     let CONFIG = {
         "author": {
             "type": "is",
-            "resultMap": res => res? res: "",
+            "resultMap": res => res? res.replace(/@.+/, ""): "",
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > aside > section.sc-171jvz-1.sc-171jvz-3.sc-10r3j8-0.f30yhg-3.dfhJPe > h2 > div > div > a", // pixiv.net
                 "#tag-sidebar > li.tag-type-artist.tag > a", // safebooru.org
@@ -54,7 +54,6 @@
                 "#tag-sidebar > li.tag-type-character.tag > a", // safebooru.org
                 "body > div > div.content > div > div > table > tbody > tr:nth-child(5) > td:nth-child(2) > ul > li", // hitomi.la
                 "body > div > div.sidebar > ul > li > a.character", // nozomi.la
-
             ]
         },
         "full_color": {
@@ -67,7 +66,7 @@
                 "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
                 "body > div > div.sidebar > ul > li > a.general", // nozomi.la
             ]
-        }
+        },
     };
 
     // Codes below
