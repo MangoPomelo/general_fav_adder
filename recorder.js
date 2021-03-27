@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         General Favoriates Adder
 // @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
-// @version      0.2
+// @version      0.25
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
-// @match        https://www.pixiv.net/artworks/*
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
+// @include      /^https?://www\.pixiv\.net/artworks/.*$/
+// @include      /^https?://hitomi\.la/(doujinshi|gamecg|cg)/.*?\.html$/
+// @include      /^https?://nozomi\.la/post/.*?\.html$/
 // @grant        none
 // ==/UserScript==
 
@@ -13,7 +15,7 @@
     'use strict';
 
     let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
-    let TEMPLATE = "{author} {URL} {character} {yuri}"; // placeholders must coresponding to the subjects in CONFIG
+    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}\t{ashikoki}\t{tekoki}"; // placeholders must coresponding to the subjects in CONFIG
     let LIKE = "LIKE"; let COPIED = "COPIED"; // words displayed on the button
     let CONFIG = {
         "author": {
@@ -22,12 +24,13 @@
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > aside > section.sc-171jvz-1.sc-171jvz-3.sc-10r3j8-0.f30yhg-3.dfhJPe > h2 > div > div > a", // pixiv.net
                 "#tag-sidebar > li.tag-type-artist.tag > a", // safebooru.org
+                "body > div.container > div.content > div.gallery > h2", "body > div.container > div.content > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > ul > li > a", // hitomi.la
+                "body > div > div.sidebar > ul > li > a.artist", // nozomi.la
             ]
         },
         "URL": {
             "type": "is",
-            "resultMap": x => window.location.href.replace(location.hash,""),
-            "evaluations": []
+            "resultMap": x => window.location.href.replace(location.hash, "")
         },
         "character": {
             "type": "is",
@@ -36,8 +39,8 @@
                 "patterns": [
                     {"reg": /^.*_.*$/, "weight": 5},
                     {"reg": /^.* .*$/, "weight": 3},
-                    {"reg": /^.*\(.*\)$/, "weight": 4},
-                    {"reg": /^.*・.*$/, "weight": 4},
+                    {"reg": /^.*\(.*\)$/, "weight": 15},
+                    {"reg": /^.*・.*$/, "weight": 15},
                     {"reg": /^[ァ-ヴー]{4}$/u, "weight": 1},
                     {"reg": /^[ァ-ヴー]{2,3}$/u, "weight": 5},
                     {"reg": /^[ァ-ヴー]+$/u, "weight": 2},
@@ -49,15 +52,20 @@
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
                 "#tag-sidebar > li.tag-type-character.tag > a", // safebooru.org
+                "body > div > div.content > div > div > table > tbody > tr:nth-child(5) > td:nth-child(2) > ul > li", // hitomi.la
+                "body > div > div.sidebar > ul > li > a.character", // nozomi.la
+
             ]
         },
-        "yuri": {
-            "type": "has", 
-            "featureTags": ["百合"],
-            "resultMap": res => res? "True": "False",
+        "full_color": {
+            "type": "has",
+            "featureTags": ["Full Color"],
+            "resultMap": res => (res || /.*(cg|post|artworks).*/.test(window.location.href))? "True": "False",
             "evaluations": [
                 "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
                 "#tag-sidebar > li.tag-type-general > a", // safebooru.org
+                "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
+                "body > div > div.sidebar > ul > li > a.general", // nozomi.la
             ]
         }
     };
@@ -162,7 +170,7 @@
                         }
                     }
                 }
-                if (score >= highestScore) {
+                if (score > highestScore) {
                     highestScore = score;
                     correspondingCandidate = candidate;
                 }
@@ -261,13 +269,14 @@
             bottom: 20px;
             left: 20px;
 
-            width: 100px;
+            width: 80px;
 
             color: #494949 !important;
             text-decoration: none;
             background: #ffffff;
-            padding: 10px;
+            padding: 6px;
             border: 4px solid #494949 !important;
+            border-radius: 5px;
             display: inline-block;
             transition: all 0.4s ease 0s;
             }
