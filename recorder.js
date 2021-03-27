@@ -15,7 +15,7 @@
     'use strict';
 
     let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
-    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}\t{ashikoki}\t{tekoki}"; // placeholders must coresponding to the subjects in CONFIG
+    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must coresponding to the subjects in CONFIG
     let LIKE = "LIKE"; let COPIED = "COPIED"; // words displayed on the button
     let CONFIG = {
         "author": {
