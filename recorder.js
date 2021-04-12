@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         General Favoriates Adder
 // @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
-// @version      0.21.4.12
+// @version      0.21.4.3
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
@@ -29,6 +29,7 @@
             </svg>
         </div>
     `;
+    let MAIN_COLOR = "#56dbfb";
     let STYLE = `
         <style>
             /* https://dribbble.com/shots/4525196-Jelly-Download */
@@ -42,6 +43,7 @@
                 border-radius: 100%;
                 background: #E8EAED;
                 cursor: pointer;
+                opacity: 0.88;
                 overflow: hidden;
                 transition: all 0.2s ease;
                 transition: bottom 1s ease;
@@ -97,7 +99,7 @@
 
             .btn-circle-extract:hover #extract path,
             .btn-circle-extract:hover #extract polyline {
-                stroke: #0077FF;
+                stroke: ${MAIN_COLOR};
             }
 
             .btn-circle-extract.load {
@@ -106,17 +108,17 @@
 
             .btn-circle-extract.load #extract path,
             .btn-circle-extract.load #extract polyline {
-                stroke: #0077FF;
+                stroke: ${MAIN_COLOR};
             }
 
             .btn-circle-extract.load #border {
-                stroke: #0077FF;
+                stroke: #56dbfb;
                 stroke-dasharray: 144;
                 stroke-dashoffset: 0;
             }
 
             .btn-circle-extract.done {
-                background: #0077FF;
+                background: ${MAIN_COLOR};
                 animation: rubberBand 0.8s;
             }
 
@@ -225,7 +227,7 @@
                 "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
                 "body > div > div.sidebar > ul > li > a.general", // nozomi.la
             ]
-        },
+        }
     };
 
     // Codes below
