@@ -43,7 +43,7 @@
                 border-radius: 100%;
                 background: #E8EAED;
                 cursor: pointer;
-                opacity: 0.88;
+                opacity: 0.65;
                 overflow: hidden;
                 transition: all 0.2s ease;
                 transition: bottom 1s ease;
@@ -94,7 +94,7 @@
             }
 
             .btn-circle-extract:hover {
-                background: rgba(0, 119, 255, 0.2);
+                background: ${MAIN_COLOR}77;
             }
 
             .btn-circle-extract:hover #extract path,
@@ -103,7 +103,7 @@
             }
 
             .btn-circle-extract.load {
-                background: rgba(0, 119, 255, 0.2);
+                background: ${MAIN_COLOR}77;
             }
 
             .btn-circle-extract.load #extract path,
