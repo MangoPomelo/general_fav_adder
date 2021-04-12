@@ -19,7 +19,7 @@
     let BUTTON = `
         <div class="btn-circle-extract">
             <svg id="extract" viewBox="0 0 1119 1024" width="24px" height="20px" transform="translate(-4 -1)">
-                <path d="M845.549139 525.561219c-12.281859 0-23.54023-5.117441-32.751624-13.305347a46.952524 46.952524 0 0 1 0-66.526737l182.18091-183.204397-182.18091-182.18091c-18.422789-18.422789-18.422789-48.103948 0-66.526737s48.103948-18.422789 66.526737 0l214.932534 215.956022a46.952524 46.952524 0 0 1 0 66.526737L879.324252 512.255872a51.878061 51.878061 0 0 1-33.775113 13.305347zM47.2283 1024h-4.093953c-25.587206-2.046977-45.033483-25.587206-42.986507-51.174413 26.610695-284.529735 131.006497-496.391804 313.187406-627.398301 315.234383-227.214393 741.005497-132.029985 758.404798-127.936032 25.587206 5.117441 40.93953 30.704648 34.798601 56.291854-5.117441 24.563718-30.704648 40.93953-56.291854 34.798601-3.070465-1.023488-402.230885-89.043478-682.666667 113.607197-158.64068 114.630685-250.754623 302.952524-273.271364 558.824587C91.238295 1005.577211 70.76853 1024 47.2283 1024z" fill="#9098A9"></path>
+                <path d="M845.549139 525.561219c-12.281859 0-23.54023-5.117441-32.751624-13.305347a46.952524 46.952524 0 0 1 0-66.526737l182.18091-183.204397-182.18091-182.18091c-18.422789-18.422789-18.422789-48.103948 0-66.526737s48.103948-18.422789 66.526737 0l214.932534 215.956022a46.952524 46.952524 0 0 1 0 66.526737L879.324252 512.255872a51.878061 51.878061 0 0 1-33.775113 13.305347zM47.2283 1024h-4.093953c-25.587206-2.046977-45.033483-25.587206-42.986507-51.174413 26.610695-284.529735 131.006497-496.391804 313.187406-627.398301 315.234383-227.214393 741.005497-132.029985 758.404798-127.936032 25.587206 5.117441 40.93953 30.704648 34.798601 56.291854-5.117441 24.563718-30.704648 40.93953-56.291854 34.798601-3.070465-1.023488-402.230885-89.043478-682.666667 113.607197-158.64068 114.630685-250.754623 302.952524-273.271364 558.824587C91.238295 1005.577211 70.76853 1024 47.2283 1024z" fill="#FFFFFF"></path>
             </svg>
             <svg id="check" width="21px" height="15px" viewBox="13 17 21 15">
                 <polyline points="32.5 18.5 20 31 14.5 25.5"></polyline>
@@ -29,7 +29,6 @@
             </svg>
         </div>
     `;
-    let MAIN_COLOR = "#56dbfb";
     let STYLE = `
         <style>
             /* https://dribbble.com/shots/4525196-Jelly-Download */
@@ -41,23 +40,29 @@
                 width: 48px;
                 margin: auto;
                 border-radius: 100%;
-                background: #E8EAED;
+                background: #FFF;
                 cursor: pointer;
                 opacity: 0.65;
                 overflow: hidden;
-                transition: all 0.2s ease;
+                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.5), 2px 2px 5px rgba(0, 0, 0, 0.5);
+                transition: all 0.5s ease;
                 transition: bottom 1s ease;
                 z-index: 999;
             }
+            .btn-circle-extract:active {
+                transform: scale(0.85);
+            }
 
-            .btn-circle-extract:after {
+            .btn-circle-extract::before {
                 content: "";
-                position: relative;
-                display: block;
-                width: 200%;
-                height: 100%;
-                background-image: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
-                transform: translateX(-100%);
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                right: 6px;
+                bottom: 6px;
+                border-radius: 50%;
+                border: 2px solid #0086e0;
+                background: #0086e0;
             }
 
             .btn-circle-extract svg {
@@ -71,7 +76,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                stroke: none;
+                stroke-width: 3;
                 stroke-dasharray: 144;
                 stroke-dashoffset: 144;
                 transition: all 0.9s linear;
@@ -93,32 +98,13 @@
                 transform: scale(0);
             }
 
-            .btn-circle-extract:hover {
-                background: ${MAIN_COLOR}77;
-            }
-
-            .btn-circle-extract:hover #extract path,
-            .btn-circle-extract:hover #extract polyline {
-                stroke: ${MAIN_COLOR};
-            }
-
-            .btn-circle-extract.load {
-                background: ${MAIN_COLOR}77;
-            }
-
-            .btn-circle-extract.load #extract path,
-            .btn-circle-extract.load #extract polyline {
-                stroke: ${MAIN_COLOR};
-            }
-
             .btn-circle-extract.load #border {
-                stroke: #56dbfb;
+                stroke: #0076BF;
                 stroke-dasharray: 144;
                 stroke-dashoffset: 0;
             }
 
             .btn-circle-extract.done {
-                background: ${MAIN_COLOR};
                 animation: rubberBand 0.8s;
             }
 
@@ -419,7 +405,7 @@
         }, 3000);
         setTimeout(()=>{
             elem.remove();
-        }, 5000);
+        }, 7000);
     };
 
     (()=>{
