@@ -1,5 +1,6 @@
 # 通用收藏添加器
 # General Favoriate Adder
+- Github: [Github](https://github.com/MangoPomelo/General_Fav_Adder/)
 - Greasyfork: [Greasyfork](https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder)  
 <br/> 
 
@@ -24,4 +25,4 @@
 <br/> 
 
 - 建议保存收藏在私有在线表格，如Seatable
-- Favs are recommended to save on online private tables, such as Seatable  
+- Favs are recommended to save on online private tables, such as Seatable
