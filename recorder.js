@@ -18,7 +18,7 @@
     let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must corresponding to the subjects in CONFIG
     let BUTTON = `
         <div class="btn-circle-extract">
-            <svg id="extract" viewBox="0 0 1024 1024" width="24px" height="24px" transform="translate(-5 -2)">
+            <svg id="extract" viewBox="0 0 1024 1024" width="24px" height="24px">
                 <path d="M160.41 522.24l90.47-90.47 45.21 45.26-90.42 90.42a192 192 0 0 0 271.36 271.82l90.47-90.47 45.21 45.21-90.47 90.47a256 256 0 0 1-361.83-362.24z m678.86-45.21l-90.47 90.42 45.21 45.26 90.47-90.47a256 256 0 0 0-362.24-361.83l-90.47 90.47 45.26 45.21 90.42-90.42a192 192 0 0 1 271.82 271.36z" fill="#ffffff"></path><path d="M341.35 642.97a42.7 42.7 0 1 0 60.16 60.62l302.08-302.08a42.65 42.65 0 1 0-60.62-60.16L341.35 642.97z" fill="#ffffff"></path>
             </svg>
             <svg id="check" width="21px" height="15px" viewBox="13 17 21 15">
@@ -26,6 +26,7 @@
             </svg>
         </div>
     `;
+    let [MAIN_H, MAIN_S, MAIN_L] = [205, 100, 50]; // use HSL, not RGB
     let STYLE = `
         <style>
             /* Based on: https://dribbble.com/shots/4525196-Jelly-Download */
@@ -38,8 +39,8 @@
                 margin: auto;
                 border-radius: 100%;
                 background: #FFF;
+                opacity: 0.97;
                 cursor: pointer;
-                opacity: 0.85;
                 overflow: hidden;
                 box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
                 transition: all 0.5s ease;
@@ -53,13 +54,12 @@
             .btn-circle-extract::before {
                 content: "";
                 position: absolute;
-                top: 6px;
-                left: 6px;
-                right: 6px;
-                bottom: 6px;
+                top: 2px;
+                left: 2px;
+                right: 2px;
+                bottom: 2px;
                 border-radius: 50%;
-                border: 2px solid #0086e0;
-                background: #0086e0;
+                background: radial-gradient(circle, hsl(${MAIN_H}deg ${MAIN_S-25}% ${MAIN_L}%) 0%, hsl(${MAIN_H}deg ${MAIN_S}% ${MAIN_L}%) 60%, hsl(${MAIN_H-5}deg ${MAIN_S-60}% ${MAIN_L-5}%) 63%, hsl(0deg 0% 100%) 65%);
             }
 
             .btn-circle-extract svg {
@@ -71,9 +71,8 @@
 
             .btn-circle-extract svg#extract {
                 position: absolute;
-                top: 14px;
-                left: 17px;
-                stroke: #9098A9;
+                top: 12px;
+                left: 12px;
                 transition: all 0.2s ease;
             }
 
