@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         General Favoriates Adder
 // @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
-// @version      0.21.4.3
+// @version      0.21.4.13
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
@@ -15,23 +15,20 @@
     'use strict';
 
     let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
-    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must coresponding to the subjects in CONFIG
+    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must corresponding to the subjects in CONFIG
     let BUTTON = `
         <div class="btn-circle-extract">
-            <svg id="extract" viewBox="0 0 1119 1024" width="24px" height="20px" transform="translate(-4 -1)">
-                <path d="M845.549139 525.561219c-12.281859 0-23.54023-5.117441-32.751624-13.305347a46.952524 46.952524 0 0 1 0-66.526737l182.18091-183.204397-182.18091-182.18091c-18.422789-18.422789-18.422789-48.103948 0-66.526737s48.103948-18.422789 66.526737 0l214.932534 215.956022a46.952524 46.952524 0 0 1 0 66.526737L879.324252 512.255872a51.878061 51.878061 0 0 1-33.775113 13.305347zM47.2283 1024h-4.093953c-25.587206-2.046977-45.033483-25.587206-42.986507-51.174413 26.610695-284.529735 131.006497-496.391804 313.187406-627.398301 315.234383-227.214393 741.005497-132.029985 758.404798-127.936032 25.587206 5.117441 40.93953 30.704648 34.798601 56.291854-5.117441 24.563718-30.704648 40.93953-56.291854 34.798601-3.070465-1.023488-402.230885-89.043478-682.666667 113.607197-158.64068 114.630685-250.754623 302.952524-273.271364 558.824587C91.238295 1005.577211 70.76853 1024 47.2283 1024z" fill="#FFFFFF"></path>
+            <svg id="extract" viewBox="0 0 1024 1024" width="24px" height="24px" transform="translate(-5 -2)">
+                <path d="M160.41 522.24l90.47-90.47 45.21 45.26-90.42 90.42a192 192 0 0 0 271.36 271.82l90.47-90.47 45.21 45.21-90.47 90.47a256 256 0 0 1-361.83-362.24z m678.86-45.21l-90.47 90.42 45.21 45.26 90.47-90.47a256 256 0 0 0-362.24-361.83l-90.47 90.47 45.26 45.21 90.42-90.42a192 192 0 0 1 271.82 271.36z" fill="#ffffff"></path><path d="M341.35 642.97a42.7 42.7 0 1 0 60.16 60.62l302.08-302.08a42.65 42.65 0 1 0-60.62-60.16L341.35 642.97z" fill="#ffffff"></path>
             </svg>
             <svg id="check" width="21px" height="15px" viewBox="13 17 21 15">
                 <polyline points="32.5 18.5 20 31 14.5 25.5"></polyline>
-            </svg>
-            <svg id="border" width="48px" height="48px" viewBox="0 0 48 48">
-                <path d="M24,1 L24,1 L24,1 C36.7025492,1 47,11.2974508 47,24 L47,24 L47,24 C47,36.7025492 36.7025492,47 24,47 L24,47 L24,47 C11.2974508,47 1,36.7025492 1,24 L1,24 L1,24 C1,11.2974508 11.2974508,1 24,1 L24,1 Z"></path>
             </svg>
         </div>
     `;
     let STYLE = `
         <style>
-            /* https://dribbble.com/shots/4525196-Jelly-Download */
+            /* Based on: https://dribbble.com/shots/4525196-Jelly-Download */
             .btn-circle-extract {
                 position: fixed;
                 bottom: 32px;
@@ -42,9 +39,9 @@
                 border-radius: 100%;
                 background: #FFF;
                 cursor: pointer;
-                opacity: 0.65;
+                opacity: 0.85;
                 overflow: hidden;
-                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.5), 2px 2px 5px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
                 transition: all 0.5s ease;
                 transition: bottom 1s ease;
                 z-index: 999;
@@ -72,16 +69,6 @@
                 fill: none;
             }
 
-            .btn-circle-extract svg#border {
-                position: absolute;
-                top: 0;
-                left: 0;
-                stroke-width: 3;
-                stroke-dasharray: 144;
-                stroke-dashoffset: 144;
-                transition: all 0.9s linear;
-            }
-
             .btn-circle-extract svg#extract {
                 position: absolute;
                 top: 14px;
@@ -98,12 +85,6 @@
                 transform: scale(0);
             }
 
-            .btn-circle-extract.load #border {
-                stroke: #0076BF;
-                stroke-dasharray: 144;
-                stroke-dashoffset: 0;
-            }
-
             .btn-circle-extract.done {
                 animation: rubberBand 0.8s;
             }
@@ -114,7 +95,6 @@
                 transition-delay: 0.7s;
             }
 
-            .btn-circle-extract.done #border,
             .btn-circle-extract.done #extract {
                 display: none;
             }
@@ -158,10 +138,7 @@
     `;
     let CALLBACK = () => {
         document.querySelector(".btn-circle-extract").onclick = function() {
-            this.classList.add("load");
-            setTimeout(function() {
-                document.querySelector(".btn-circle-extract").classList.add("done");
-            }, 1000);
+            document.querySelector(".btn-circle-extract").classList.add("done");
         };
     };
     let CONFIG = {
@@ -405,7 +382,7 @@
         }, 3000);
         setTimeout(()=>{
             elem.remove();
-        }, 7000);
+        }, 5000);
     };
 
     (()=>{
