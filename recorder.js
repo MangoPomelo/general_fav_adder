@@ -15,7 +15,7 @@
     'use strict';
 
     let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
-    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must corresponding to the subjects in CONFIG
+    let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}\t{ashikoki}\t{tekoki}"; // placeholders must corresponding to the subjects in CONFIG
     let BUTTON = `
         <div class="btn-circle-extract">
             <svg id="extract" viewBox="0 0 1024 1024" width="24px" height="24px">
@@ -73,7 +73,6 @@
                 position: absolute;
                 top: 12px;
                 left: 12px;
-                transition: all 0.2s ease;
             }
 
             .btn-circle-extract svg#check {
@@ -95,7 +94,8 @@
             }
 
             .btn-circle-extract.done #extract {
-                display: none;
+                transform: scale(0);
+                transition: all 0.2s ease;
             }
 
             .btn-circle-extract.done #check {
@@ -189,7 +189,29 @@
                 "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
                 "body > div > div.sidebar > ul > li > a.general", // nozomi.la
             ]
-        }
+        },
+        "ashikoki": {
+            "type": "has",
+            "featureTags": ["Footjob", "足コキ"],
+            "resultMap": res => res? "True": "False",
+            "evaluations": [
+                "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
+                "#tag-sidebar > li.tag-type-general > a", // safebooru.org
+                "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
+                "body > div > div.sidebar > ul > li > a.general", // nozomi.la
+            ]
+        },
+        "tekoki": {
+            "type": "has",
+            "featureTags": ["Handjob", "手コキ"],
+            "resultMap": res => res? "True": "False",
+            "evaluations": [
+                "#root > div:nth-child(2) > div.sc-1nr368f-0.kCKAFN > div > div.sc-1nr368f-3.iHKGIi > main > section > div.sc-171jvz-0.ketmXG > div > figcaption > div.sc-1u8nu73-13.KzfRK > div > footer > ul > li > span > span:nth-child(1)", // pixiv.net
+                "#tag-sidebar > li.tag-type-general > a", // safebooru.org
+                "body > div > div.content > div > div > table > tbody > tr > td:nth-child(2) > ul > li", // hitomi.la
+                "body > div > div.sidebar > ul > li > a.general", // nozomi.la
+            ]
+        },
     };
 
     // Codes below
