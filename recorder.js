@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         General Favoriates Adder
 // @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
-// @version      0.21.4.13
+// @version      0.21.4.14
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
@@ -26,14 +26,14 @@
             </svg>
         </div>
     `;
-    let [MAIN_H, MAIN_S, MAIN_L] = [205, 100, 50]; // use HSL, not RGB
+    let [MAIN_H, MAIN_S, MAIN_L] = [197, 85, 63]; // use HSL, not RGB
     let STYLE = `
         <style>
             /* Based on: https://dribbble.com/shots/4525196-Jelly-Download */
             .btn-circle-extract {
                 position: fixed;
-                bottom: 32px;
-                left: 28px;
+                bottom: 28px;
+                left: 20px;
                 height: 48px;
                 width: 48px;
                 margin: auto;
@@ -42,7 +42,7 @@
                 opacity: 0.97;
                 cursor: pointer;
                 overflow: hidden;
-                box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16), 0px 1px 2px hsla(${MAIN_H}deg, ${MAIN_S}%, ${MAIN_L}%, 0.5);
                 transition: all 0.5s ease;
                 transition: bottom 1s ease;
                 z-index: 999;
@@ -59,7 +59,7 @@
                 right: 2px;
                 bottom: 2px;
                 border-radius: 50%;
-                background: radial-gradient(circle, hsl(${MAIN_H}deg ${MAIN_S-25}% ${MAIN_L}%) 0%, hsl(${MAIN_H}deg ${MAIN_S}% ${MAIN_L}%) 60%, hsl(${MAIN_H-5}deg ${MAIN_S-60}% ${MAIN_L-5}%) 63%, hsl(0deg 0% 100%) 65%);
+                background: radial-gradient(circle, hsl(${MAIN_H}deg ,${MAIN_S * .75}%, ${MAIN_L}%) 0%, hsl(${MAIN_H}deg, ${MAIN_S}%, ${MAIN_L}%) 60%, hsl(${MAIN_H-5}deg, ${MAIN_S * .5}%, ${MAIN_L-5}%) 63%, hsl(0deg, 0%, 100%) 65%);
             }
 
             .btn-circle-extract svg {
