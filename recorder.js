@@ -47,9 +47,6 @@
                 transition: bottom 1s ease;
                 z-index: 999;
             }
-            .btn-circle-extract:active {
-                transform: scale(0.85);
-            }
 
             .btn-circle-extract::before {
                 content: "";
