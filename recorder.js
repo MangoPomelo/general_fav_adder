@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         General Favoriates Adder
 // @namespace    https://greasyfork.org/zh-CN/scripts/424020-general-favoriates-adder
-// @version      0.21.4.14
+// @version      0.21.4.27
 // @description  General Favoriates Adder for pixiv.net or other websites
 // @author       MangoPomelo
 // @include      /^https?://safebooru\.org/index\.php.*id=.*$/
@@ -13,6 +13,8 @@
 
 (function() {
     'use strict';
+
+    if (window != window.top){return undefined;} // iframe is not allowed
 
     let MODE = "PRODUCTION"; // "TUNNING" if want to tune the threshold and create new pattern, else use "PRODUCTION"
     let TEMPLATE = "{author}\t{URL}\t{character}\t{full_color}"; // placeholders must corresponding to the subjects in CONFIG
